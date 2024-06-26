@@ -41,3 +41,9 @@ def detail_view(request, pk):
             status=201,
 
         )
+    elif request.method == "DELETE":
+        genre.delete()
+        return JsonResponse(
+            {'message': f'Genero {genre.name} excluido'},
+            status=204,
+        )
