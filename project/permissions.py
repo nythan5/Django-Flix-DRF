@@ -1,5 +1,7 @@
 from rest_framework.permissions import BasePermission
 
+# IMPORTANTE neste caso eu também posso criar grupos e atribuir um usuario ao grupo logo ele herdará as permissoes do grupo.
+
 
 class GlobalDefaultPermission(BasePermission):
     def has_permission(self, request, view):
