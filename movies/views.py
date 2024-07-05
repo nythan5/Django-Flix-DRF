@@ -41,12 +41,14 @@ class MovieStatsView(APIView):
         # atravês da função Avg e posteriormente como pegamos apenas este campo atraves dos [] # noqa
         average_stars = Review.objects.aggregate(avg_stars=Avg('stars'))['avg_stars']  # noqa
 
-        return response.Response(
-            data={
-                'total_movies': total_movies,
-                'movies_by_genre': movies_by_genre,
-                'total_review': total_reviews,
-                'average_stars': round(average_stars, 1) if average_stars else 0
-            },
-            status=status.HTTP_200_OK
-        )
+        movie_stats = {
+            'total_movies': total_movies,
+            'movies_by_genre': movies_by_genre,
+            'total_review': total_reviews,
+            'average_stars': round(average_stars, 1) if average_stars else 0
+        }
+
+        # Podemos criar um serializer para poder fazer validacoes e calculos caso necessário # noqa
+        # Neste caso nao precisa pois já montamos o dicionario na variavel acima. # noqa
+
+        return response.Response(data=movie_stats, status=status.HTTP_200_OK)
